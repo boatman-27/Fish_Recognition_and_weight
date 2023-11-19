@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Fish Recognition</h1>
+    <p>Upload an image or video to recognize and measure fish.</p>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="file-input" class="file-upload-container">
+            <input type="file" name="file" id="file-input" class="file-input" accept=".jpg, .jpeg, .png, .bmp, .mp4, .avi, .mkv" onchange="showImage()">
+            Click here or drag and drop a file
+        </label>
+        <br>
+        <br>
+        <input type="submit" value="Submit"  class="mybtn">
+        <br>
+        <br>
+        <img id="uploaded-image" class="image">
+        <video id="uploaded-vid" class="vid"></video>
+
+    </form>
+    
+    <script>
+        function showImage() {
+            const fileInput = document.getElementById("file-input");
+            const uploadedImage = document.getElementById("uploaded-image");
+            const uploadedVideo = document.getElementById("uploaded-vid");
+        
+            if (fileInput.files && fileInput.files[0]) {
+                const file = fileInput.files[0];
+                const fileType = file.name.split('.').pop().toLowerCase();
+               
+                if (fileType === "mp4" || fileType === "avi" || fileType === "mkv") {
+                    // It's a video
+                    uploadedImage.innerHTML = ""; // Clear any previous image
+                    uploadedImage.setAttribute("alt", "Video");
+                    uploadedImage.style.display = "none"; // Hide the image element
+                    uploadedVideo.style.display = "block"; // Display the video element
+                    uploadedVideo.setAttribute("width", "640");
+                    uploadedVideo.setAttribute("controls", "controls");
+                    uploadedVideo.setAttribute("src", URL.createObjectURL(file));
+                    uploadedVideo.setAttribute("type", "video/" + fileType);
+                } else {
+                    // It's an image
+                    uploadedImage.setAttribute("alt", "Fish Image");
+                    uploadedImage.src = URL.createObjectURL(file);
+                }
+            }
+        }
+        
+    
+        function goBack() {
+            // Redirect to the main page without measurements
+            window.location.href = '/';
+        }
+    </script>
+    
+    
+    {% if measurements %}
+    <h2>Recognition Result:</h2>
+    <table>
+        <tr>
+            <th>Class</th>
+            <th>Topmost Point</th>
+            <th>Bottommost Point</th>
+            <th>Leftmost Point</th>
+            <th>Rightmost Point</th>
+            <th>Length (In)</th>
+            <th>Width (In)</th>
+            <th>Girth (In)</th>
+            <th>Weight (lbs)</th>
+            <th>Accuracy (%)</th>
+            <th>Final Image</th>
+        </tr>
+        {% for measurement in measurements %}
+        <tr>
+            <td>{{ measurement.Class_Name }}</td>
+            <td>{{ measurement.Topmost_Point }}</td>
+            <td>{{ measurement.Bottommost_Point }}</td>
+            <td>{{ measurement.Leftmost_Point }}</td>
+            <td>{{ measurement.Rightmost_Point }}</td>
+            <td>{{ measurement.length }}</td>
+            <td>{{ measurement.width }}</td>
+            <td>{{ measurement.girth }}</td>
+            <td>{{ measurement.weight }}</td>
+            <td>{{ measurement.accuracy * 100 }}</td>
+            <td><img src="{{ measurement.Final_Image }}" width="200" height="150"></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <br>
+    <button type="button" class="mybtn" onclick="goBack()">Back to Main</button> 
+    {% endif %}
+</body>
+</html>

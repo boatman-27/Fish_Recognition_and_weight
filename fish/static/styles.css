@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    color: #0078d4;
+}
+
+form {
+    margin: 20px;
+}
+
+p {
+    font-size: 18px;
+}
+
+.file-input {
+    display: none; /* Hide the default file input */
+}
+
+.file-upload-container {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px dashed #ccc;
+    cursor: pointer;
+}
+
+.file-upload-container:hover {
+    border: 2px dashed #333;
+}
+
+.image {
+    max-width: 640px; 
+    max-height: 512px;
+}
+
+.vid {
+    display: block;
+    margin: 0 auto;
+}
+
+input[type="submit"] {
+    background-color: #0078d4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #005fbb;
+}
+
+.mybtn {
+    background-color: #0078d4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+.mybtn:hover {
+    background-color: #005fbb;
+}
+
+table {
+    margin: 0 auto;
+}
+
+/* Draw table lines */
+table {
+    border-collapse: collapse;
+    width: 80%; /* Adjust the width as needed */
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+/* Style the table headers */
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+}
+
+/* Style the table cells */
+td {
+    text-align: center;
+    padding: 8px;
+}
