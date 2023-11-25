@@ -150,6 +150,7 @@ def getFishMeasurements(mask_filenames, class_names, accuracies):
     
     if measurements_done:
         recognized_fish.clear()
+        accuracies.clear()
         measurements_done = False  # Reset measurements_done
     
     for i, img in enumerate(mask_filenames):
@@ -319,34 +320,6 @@ def getFishMeasurements(mask_filenames, class_names, accuracies):
         width_in = width_cm / 2.54
         
         girthy_co = 0.58
-
-        # match class_name:
-        #     case "Gilt-Head Bream":
-        #         girthy_co = 0.56
-        #         weight_co = 0.0007 
-        #     case "HourseMackerel":
-        #         girthy_co = 0.53
-        #         weight_co = 0.0006
-        #     case "Red Mullet":
-        #         girthy_co = 0.54
-        #         weight_co = 0.0007 
-        #     case "RedSea Bream":
-        #         girthy_co = 0.55
-        #         weight_co = 0.0007 
-        #     case "SeaBass":
-        #         girthy_co = 0.57
-        #         weight_co = 0.0007 
-        #     case "Shrimp":
-        #         girthy_co = 0.60
-        #         weight_co = 0.0005 
-        #     case "StripedRed Mullet":
-        #         girthy_co = 0.54
-        #         weight_co = 0.0007
-        #     case "Trout":
-        #         girthy_co = 0.55
-        #         weight_co = 0.0007 
-        #     case _:
-        #         print("Unknown Species")
                 
         girth = length_in * girthy_co
         weight = length_in * girth * girth / 800
@@ -357,6 +330,7 @@ def getFishMeasurements(mask_filenames, class_names, accuracies):
         # print("Weight:", round(weight, 4), "Pounds")
         
         add_fish(class_names[counter], final_top, final_bottom, final_left, final_right, round(length_in, 2), round(width_in, 2), round(girth, 2), round(weight, 4), round(accuracies[counter], 2), image_output_path)
+
         counter += 1
     
     measurements_done = True
